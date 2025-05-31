@@ -26,6 +26,6 @@ Ainda não iniciado
 ## Integrantes
 
 - Alexsandro Krzjzniack (Darkalx3)
-- Gabriel Turri (Place Holder)
+- Gabriel Turri (GabrielZT)
 - Luis Kohn (Place Holder)
 - Luiz Henrique (Place Holder)
