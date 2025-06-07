@@ -8,7 +8,7 @@ Um jogo da forca escrito em Java como trabalho final da matéria de Modelagem e 
 
 Ainda não iniciado
 
-## O que será feito:
+## O que será feito:s
 
 - Diagramas UML do projeto: Diagrama de Casos de Uso, Diagrama de Classes, Diagrama de Sequência e Diagrama de Atividades
 - Back-end do funcionamento do Jogo da Forca, seguindos as regras da Programação Orientada a Objetos (POO)
@@ -25,7 +25,7 @@ Ainda não iniciado
 
 ## Integrantes
 
-- Alexsandro Krzjzniack (Darkalx3)
-- Gabriel Turri (Place Holder)
-- Luis Kohn (Place Holder)
-- Luiz Henrique (Place Holder)
+- Alexsandro Krzjzaniack (Darkalx3)
+- Gabriel Turri (GabrielZT)
+- Luis Kohn (LuisGFKohn)
+- Luiz Henrique (Shingor1)
