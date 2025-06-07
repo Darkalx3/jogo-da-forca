@@ -1,5 +1,9 @@
 # Jogo da Forca em Java
 
+## Aviso Importante
+
+Não clonem a "main", clonem a "developer", usem `git clone https://github.com/Darkalx3/jogo-da-forca.git -b developer` para clonar a developer.
+
 ## Breve Explicação
 
 Um jogo da forca escrito em Java como trabalho final da matéria de Modelagem e Programação De Sistemas Computacionais, da UNOESC, campus Chapecó-SC.
