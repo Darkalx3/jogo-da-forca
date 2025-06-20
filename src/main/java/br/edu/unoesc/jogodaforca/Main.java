@@ -6,8 +6,7 @@ public class Main {
         System.out.printf("Bem-vindo ao Jogo da Forca!");
 
         Jogo jogo = new Jogo();
-        Save n = new Save(jogo.aleatorizarPalavra());
-
+        jogo.iniciarJogo();
 
     }
 }

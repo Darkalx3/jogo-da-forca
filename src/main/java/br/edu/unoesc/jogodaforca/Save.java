@@ -20,6 +20,7 @@ public class Save {
         letrasAdivinhadas = new ArrayList<>();
         letrasErradas = new ArrayList<>();
     }
+
     public Save(String palavra, int quantTentativas) {
         this.quantTentativas = quantTentativas;
         this.palavra = palavra;
@@ -29,16 +30,18 @@ public class Save {
 
     // Métodos de Adição / Subtração
 
-    public void diminuirQuantTentativas() {
+    public boolean diminuirQuantTentativas() {
         if (getQuantTentativas()>0) {
             this.quantTentativas -= 1;
-        } else {
-            System.out.println("Erro: diminuirQuantTentativas() teve uma chamada inesperada.");
+            return true;
         }
+        return false;
     }
+
     public void acrescentarLetrasAdivinhadas(char letra) {
         letrasAdivinhadas.add(letra);
     }
+
     public void acrescentarLetrasErradas(char letra) {
         letrasErradas.add(letra);
     }
@@ -48,13 +51,17 @@ public class Save {
     public ArrayList<Character> getLetrasAdivinhadas() {
         return letrasAdivinhadas;
     }
+
     public ArrayList<Character> getLetrasErradas() {
         return letrasErradas;
     }
+
     public String getPalavra() {
         return palavra;
     }
+
     public int getQuantTentativas() {
         return quantTentativas;
     }
+
 }
