@@ -17,7 +17,7 @@ public class CLI {
 
     // Métodos
 
-    public int renderizarMenu() {
+    public int renderizarMenu(String textError) {
 
         System.out.print("\n"+
                          " -----------------------------------------------\n"+
@@ -26,14 +26,21 @@ public class CLI {
                          " [1] Iniciar Jogo\n"+
                          " [2] Continuar Jogo\n"+
                          " [0] Sair do Jogo\n"+
-                         " -----------------------------------------------\n"+
-                         " Sua opção: ");
+                         " -----------------------------------------------\n");
+
+        if(textError==null) {
+            System.out.print(" Sua opção: ");
+        } else {
+            System.out.print(String.format(" ERRO: %s\n"+
+                                           " -----------------------------------------------\n"+
+                                           " Sua opção: ", textError));
+        }
 
         // Fazer um try catch aqui
         return scan.nextInt();
     }
 
-    public int renderizarMenuOpcoes(Save save) { // retorna a opção escolhida no menu
+    public int renderizarMenuOpcoes(Save save, String textError) { // retorna a opção escolhida no menu
 
         System.out.print("\n"+
                         " -----------------------------------------------\n"+
@@ -74,8 +81,15 @@ public class CLI {
                          " [1] Adivinhar Letra\n"+
                          " [2] Adivinhar Palavra\n"+
                          " [0] Sair da Partida\n"+
-                         " -----------------------------------------------\n"+
-                         " Sua opção: ");
+                         " -----------------------------------------------\n");
+
+        if(textError==null) {
+            System.out.print(" Sua opção: ");
+        } else {
+            System.out.print(String.format(" ERRO: %s\n"+
+                                           " -----------------------------------------------\n"+
+                                           " Sua opção: ", textError));
+        }
 
         // Fazer um try catch aqui
         return scan.nextInt();

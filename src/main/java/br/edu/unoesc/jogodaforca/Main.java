@@ -13,8 +13,9 @@ public class Main {
         //jogo.adivinharLetra('H');
         //jogo.adivinharLetra('m');
         jogo.adivinharLetra('B');
+        jogo.adivinharLetra('Ã');
         //jogo.adivinharLetra('a');
-        cli.renderizarMenuOpcoes(jogo.retornarEstado());
+        cli.renderizarMenuOpcoes(jogo.retornarEstado(),"teste erro");
         jogo.sair(true);
         //jogo.sair(false);
 
