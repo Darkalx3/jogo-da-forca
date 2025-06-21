@@ -6,11 +6,15 @@ public class Main {
         System.out.println("Bem-vindo ao Jogo da Forca!");
 
         Jogo jogo = new Jogo();
+        CLI cli = new CLI();
         jogo.iniciarJogo();
         //jogo.adivinharPalavra("bana");
+        jogo.adivinharLetra('c');
+        //jogo.adivinharLetra('H');
+        //jogo.adivinharLetra('m');
         jogo.adivinharLetra('B');
-        jogo.adivinharLetra('a');
-        jogo.adivinharPalavra("BaNAna");
+        //jogo.adivinharLetra('a');
+        cli.renderizarMenuOpcoes(jogo.retornarEstado());
         jogo.sair(true);
         //jogo.sair(false);
 

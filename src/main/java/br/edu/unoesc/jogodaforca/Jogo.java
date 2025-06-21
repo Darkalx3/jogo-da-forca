@@ -30,6 +30,9 @@ public class Jogo {
     public boolean continuarJogo() {
         if(data.existeEstado()) {
             save = data.carregarEstado();
+            if(save==null) {
+                return false;
+            }
             definirEstadoPadrao();
             return true;
         }
@@ -141,7 +144,7 @@ public class Jogo {
         List<String> lista = data.PegarListaDePalavras();
 
         if(lista==null || lista.isEmpty()) {
-            return "banana"; // apenas para testes, dá para colocar uma lista padrão e fazer um random do mesmo jeito, só adicionar algumas palavras padrão
+            return "perseverar"; // apenas para testes, dá para colocar uma lista padrão e fazer um random do mesmo jeito, só adicionar algumas palavras padrão
         }
 
         // Código para aleatorizar uma entre as palavras, não esqueça de usar .toLowerCase() antes de retornar a palavra

@@ -22,6 +22,7 @@ public class Save implements Serializable {
         this.palavraAdvinhada = "";
         letrasAdivinhadas = new ArrayList<>();
         letrasErradas = new ArrayList<>();
+        atualizarPalavraAdvinhada();
     }
 
     public Save(String palavra, int quantTentativas) {
@@ -30,6 +31,7 @@ public class Save implements Serializable {
         this.palavraAdvinhada = "";
         letrasAdivinhadas = new ArrayList<>();
         letrasErradas = new ArrayList<>();
+        atualizarPalavraAdvinhada();
     }
 
     // Métodos de Adição / Subtração
@@ -44,15 +46,7 @@ public class Save implements Serializable {
 
     public void acrescentarLetrasAdivinhadas(char letra) {
         letrasAdivinhadas.add(letra);
-
-        this.palavraAdvinhada = "";
-        for(int i=0;i<this.palavra.length();i++) {
-            if(letraFoiAdivinhada(this.palavra.charAt(i))) {
-                this.palavraAdvinhada += this.palavra.charAt(i);
-            } else {
-                this.palavraAdvinhada += ' ';
-            }
-        }
+        atualizarPalavraAdvinhada();
     }
 
     public void acrescentarLetrasErradas(char letra) {
@@ -90,6 +84,17 @@ public class Save implements Serializable {
             }
         }
         return false;
+    }
+
+    private void atualizarPalavraAdvinhada() {
+        this.palavraAdvinhada = "";
+        for(int i=0;i<this.palavra.length();i++) {
+            if(letraFoiAdivinhada(this.palavra.charAt(i))) {
+                this.palavraAdvinhada += this.palavra.charAt(i);
+            } else {
+                this.palavraAdvinhada += '_';
+            }
+        }
     }
 
 }
