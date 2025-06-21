@@ -19,6 +19,7 @@ public class CLI {
 
     public int renderizarMenu(String textError) {
 
+        limparTela();
         System.out.print("\n"+
                          " -----------------------------------------------\n"+
                          "                 JOGO DA FORCA\n"+
@@ -37,11 +38,13 @@ public class CLI {
         }
 
         // Fazer um try catch aqui
+        System.out.flush();
         return scan.nextInt();
     }
 
     public int renderizarMenuOpcoes(Save save, String textError) { // retorna a opção escolhida no menu
 
+        limparTela();
         System.out.print("\n"+
                         " -----------------------------------------------\n"+
                         "                 JOGO DA FORCA\n"+
@@ -92,7 +95,49 @@ public class CLI {
         }
 
         // Fazer um try catch aqui
+        System.out.flush();
         return scan.nextInt();
+    }
+
+    public char renderizarAdivinharLetra() {
+
+        System.out.print("\n -\n Digite a letra: ");
+        System.out.flush();
+        return scan.next().charAt(0);
+    }
+
+    public String renderizarAdivinharPalavra() {
+
+        System.out.print("\n -\n Digite a palavra: ");
+        System.out.flush();
+        return scan.next();
+    }
+
+    public void renderizarMenuFinal(Save save, boolean jogadorGanhou) {
+        if(jogadorGanhou) {
+            System.out.print(" -----------------------------------------------\n"+
+                             "              PARABÉNS, VOCÊ GANHOU\n"+
+                             "                O JOGO DA FORCA\n"+
+                             " -----------------------------------------------\n");
+        } else {
+            System.out.print(" -----------------------------------------------\n"+
+                             "            INFELIZMENTE, VOCÊ FEZ O L\n"+
+                             "                NO JOGO DA FORCA\n"+
+                             " -----------------------------------------------\n");
+        }
+        System.out.print(String.format("  A PALAVRA ERA: %s\n"+
+                                       " -----------------------------------------------\n"+
+                                       " -\n Digite algo para continuar: ", save.getPalavra().toUpperCase()));
+
+        System.out.flush();
+        scan.next();
+    }
+
+    // Funções Privadas
+
+    private void limparTela() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
     }
 
     /* adicionem outras funções conforme a necessidade ...*/
