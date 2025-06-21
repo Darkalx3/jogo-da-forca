@@ -45,7 +45,7 @@ public class Jogo {
         if(isJogoIniciado() && !isJogoFinalizado() && !letraJaEscolhida(letra)) {
 
             boolean possuiLetra = false;
-            String palavra = save.getPalavra();
+            String palavra = save.getPalavraEscolhida();
 
             for(int i=0;i<palavra.length();i++) {
                 if(letra == palavra.charAt(i)) {
@@ -72,7 +72,7 @@ public class Jogo {
 
         if(isJogoIniciado() && !isJogoFinalizado()) {
 
-            if(palavra.equals(save.getPalavra())) {
+            if(palavra.equals(save.getPalavraEscolhida())) {
                 this.jogadorGanhou = true;
             } else {
                 save.diminuirQuantTentativas();
@@ -161,9 +161,11 @@ public class Jogo {
     private void verificarEstado() {
         if (isJogadorGanhou() || save.getQuantTentativas()==0) {
             this.jogoFinalizado = true;
-        } else if(save.getPalavraAdvinhada().equals(save.getPalavra())){
+            data.zerarEstado();
+        } else if(save.getPalavraAdvinhada().equals(save.getPalavraEscolhida())){
             this.jogoFinalizado = true;
             this.jogadorGanhou = true;
+            data.zerarEstado();
         }
     }
 }

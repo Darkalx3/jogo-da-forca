@@ -53,7 +53,7 @@ public class Encapsulamento {
             }
 
         } catch (IOException e) {
-            System.out.printf("Erro: %s\n", e.getMessage());
+            System.out.print(String.format("Erro: %s\n", e.getMessage()));
         }
 
         return lista;
@@ -73,14 +73,13 @@ public class Encapsulamento {
                 obj.close();
             }
         } catch (ClassNotFoundException | IOException e) {
-            System.out.printf("Erro: %s\n", e.getMessage());
+            System.out.print(String.format("Erro: %s\n", e.getMessage()));
         }
 
         return estado;
     }
 
     public void salvarEstado(Save estado) {
-
         try {
             if(!Files.exists(dir)) {
                 Files.createDirectory(dir);
@@ -93,10 +92,18 @@ public class Encapsulamento {
             obj.writeObject(estado);
             obj.close();
 
-        } catch (IOException error) {
-            System.out.printf("Ocorreu o erro %s\n", error.getMessage());
+        } catch (IOException e) {
+            System.out.print(String.format("Erro: %s\n", e.getMessage()));
         }
 
+    }
+
+    public void zerarEstado() {
+        try {
+            Files.deleteIfExists(state);
+        } catch (IOException e) {
+            System.out.print(String.format("Erro: %s\n", e.getMessage()));
+        }
     }
 
 }
