@@ -45,6 +45,7 @@ public class CLI {
                 System.out.println("Entrada inválida. Digite um número (0, 1 ou 2).");
                 System.out.print(" Sua opção: ");
             }
+        }
     }
 
     public int renderizarMenuOpcoes(Save save, String textError) { // retorna a opção escolhida no menu
@@ -100,13 +101,14 @@ public class CLI {
         }
 
         System.out.flush();
-            while (true) {
-                try {
-                    return Integer.parseInt(scan.nextLine());
-                } catch (NumberFormatException e) {
-                    System.out.println("Entrada inválida. Digite um número (0, 1 ou 2).");
-                    System.out.print(" Sua opção: ");
-                }
+        while (true) {
+            try {
+                return Integer.parseInt(scan.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Entrada inválida. Digite um número (0, 1 ou 2).");
+                System.out.print(" Sua opção: ");
+            }
+        }
     }
 
     public char renderizarAdivinharLetra() {
