@@ -143,13 +143,12 @@ public class Jogo {
     private String aleatorizarPalavra() {
         List<String> lista = data.PegarListaDePalavras();
 
-        if(lista==null || lista.isEmpty()) {
-            return "perseverar"; // apenas para testes, dá para colocar uma lista padrão e fazer um random do mesmo jeito, só adicionar algumas palavras padrão
+        if (lista == null || lista.isEmpty()) {
+            lista = List.of("perseverar","lua", "liberdade", "computador", "internet", "forca", "jogo", "palavra", "código");
         }
 
-        // Código para aleatorizar uma entre as palavras, não esqueça de usar .toLowerCase() antes de retornar a palavra
-
-        return "lua"; // apenas para testes, remove depois de implementar o aleatorizar
+        int indice = (int) (Math.random() * lista.size());
+        return lista.get(indice).toLowerCase();
     }
 
     private void definirEstadoPadrao() {
