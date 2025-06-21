@@ -45,6 +45,7 @@ public class Main {
 
                 if(opt==0) {
                     jogo.sair(true); // Precisa de CLI para isso
+                    errorMenuOpcao = null;
                     break;
                 } else if(opt==1) {
                     letra = cli.renderizarAdivinharLetra();
@@ -65,7 +66,7 @@ public class Main {
 
             // Verifica o Final da Partida
 
-            if(jogo.isJogoIniciado() && !jogo.isJogadorSaiu()) {
+            if(errorMenu==null && !jogo.isJogadorSaiu()) {
                 cli.renderizarMenuFinal(jogo.retornarEstado(),jogo.isJogadorGanhou());
             }
         }

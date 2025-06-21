@@ -10,7 +10,7 @@ public class Save implements Serializable {
     private ArrayList<Character> letrasAdivinhadas;
     private ArrayList<Character> letrasErradas;
     private String palavraAdvinhada;
-    private String palavra;
+    private String palavraEscolhida;
     private int quantTentativas;
 
     // Construtores
@@ -18,7 +18,7 @@ public class Save implements Serializable {
     public Save(String palavra) {
         /* quantTentativas pode ser por padrão 6 */
         this.quantTentativas = 6;
-        this.palavra = palavra;
+        this.palavraEscolhida = palavra;
         this.palavraAdvinhada = "";
         letrasAdivinhadas = new ArrayList<>();
         letrasErradas = new ArrayList<>();
@@ -27,7 +27,7 @@ public class Save implements Serializable {
 
     public Save(String palavra, int quantTentativas) {
         this.quantTentativas = quantTentativas;
-        this.palavra = palavra;
+        this.palavraEscolhida = palavra;
         this.palavraAdvinhada = "";
         letrasAdivinhadas = new ArrayList<>();
         letrasErradas = new ArrayList<>();
@@ -63,8 +63,8 @@ public class Save implements Serializable {
         return letrasErradas;
     }
 
-    public String getPalavra() {
-        return palavra;
+    public String getPalavraEscolhida() {
+        return palavraEscolhida;
     }
 
     public int getQuantTentativas() {
@@ -88,9 +88,9 @@ public class Save implements Serializable {
 
     private void atualizarPalavraAdvinhada() {
         this.palavraAdvinhada = "";
-        for(int i=0;i<this.palavra.length();i++) {
-            if(letraFoiAdivinhada(this.palavra.charAt(i))) {
-                this.palavraAdvinhada += this.palavra.charAt(i);
+        for(int i=0;i<this.palavraEscolhida.length();i++) {
+            if(letraFoiAdivinhada(this.palavraEscolhida.charAt(i))) {
+                this.palavraAdvinhada += this.palavraEscolhida.charAt(i);
             } else {
                 this.palavraAdvinhada += '_';
             }

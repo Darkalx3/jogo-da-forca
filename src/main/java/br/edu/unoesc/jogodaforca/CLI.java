@@ -137,7 +137,7 @@ public class CLI {
         }
         System.out.print(String.format("  A PALAVRA ERA: %s\n"+
                                        " -----------------------------------------------\n"+
-                                       " -\n Digite algo para continuar: ", save.getPalavra().toUpperCase()));
+                                       " -\n Digite algo para continuar: ", save.getPalavraEscolhida().toUpperCase()));
 
         System.out.flush();
         scan.next();
