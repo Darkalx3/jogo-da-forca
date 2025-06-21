@@ -1,44 +1,102 @@
 package br.edu.unoesc.jogodaforca;
 
+import java.io.*;
+import java.nio.file.*;
 import java.util.EnumSet;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Encapsulamento {
 
+    // Variáveis
+
+    Path dir;
+    Path words;
+    Path readme;
+    Path state;
+
     // Contrutor
 
-    public Encapsulamento() {}
+    public Encapsulamento() {
+        this.dir = Paths.get("data");
+        this.words = Paths.get("data/words.txt");
+        this.readme = Paths.get("data/readme.txt");
+        this.state = Paths.get("data/state.data");
+    }
 
     // Funções
 
-    public ArrayList<Character> PegarListaDePalavras() {
-        ArrayList<Character> lista = new ArrayList<Character>();
+    public List<String> PegarListaDePalavras() {
+        List<String> lista = null;
 
-        /* Código para pegar data/words.data */
+        try {
+
+            // Verifica se diretórios e arquivos existem, senão, cria eles em branco
+            if(!Files.exists(dir)) {
+                Files.createDirectory(dir);
+            }
+            if(!Files.exists(words)) {
+                Files.createFile(words);
+            }
+            if(!Files.exists(readme)) {
+                Files.createFile(readme);
+            }
+
+            // Lê todas as linhas do arquivo
+            if(Files.isReadable(words)) {
+                lista = Files.readAllLines(words);
+            }
+
+            // Imprime uma mensagem no readme.txt
+            if(Files.isWritable(readme)) {
+                Files.write(readme,"Coloque as palavra a serem usadas, uma em cada linha em words.txt ".getBytes());
+            }
+
+        } catch (IOException e) {
+            System.out.printf("Erro: %s\n", e.getMessage());
+        }
 
         return lista;
     }
 
     public boolean existeEstado() {
-
-        /* Código para verificar se existe data/estado.data */
-
-        return false;
+        return Files.exists(state);
     }
 
     public Save carregarEstado() {
-        Save estado = new Save("teste");
+        Save estado = null;
 
-        /* Código para carregar estado de data/estado.data */
+        try {
+            if(Files.isReadable(state)) {
+                ObjectInputStream obj = new ObjectInputStream(new FileInputStream(state.toFile()));
+                estado = (Save) obj.readObject();
+                obj.close();
+            }
+        } catch (ClassNotFoundException | IOException e) {
+            System.out.printf("Erro: %s\n", e.getMessage());
+        }
 
         return estado;
     }
 
     public void salvarEstado(Save estado) {
 
-        /* Código para salvar estado em data/estado.data */
+        try {
+            if(!Files.exists(dir)) {
+                Files.createDirectory(dir);
+            }
+            if(!Files.exists(state)) {
+                Files.createFile(state);
+            }
+
+            ObjectOutputStream obj = new ObjectOutputStream(new FileOutputStream(state.toFile()));
+            obj.writeObject(estado);
+            obj.close();
+
+        } catch (IOException error) {
+            System.out.printf("Ocorreu o erro %s\n", error.getMessage());
+        }
 
     }
-
 
 }

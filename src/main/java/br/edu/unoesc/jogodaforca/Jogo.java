@@ -1,6 +1,7 @@
 package br.edu.unoesc.jogodaforca;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Jogo {
 
@@ -15,7 +16,9 @@ public class Jogo {
 
     // Construtor
 
-    public Jogo() {}
+    public Jogo() {
+        this.data = new Encapsulamento();
+    }
 
     // Métodos
 
@@ -34,6 +37,8 @@ public class Jogo {
     }
 
     public boolean adivinharLetra(char letra) {
+        letra = Character.toLowerCase(letra); // converte a letra para minúscula
+
         if(isJogoIniciado() && !isJogoFinalizado() && !letraJaEscolhida(letra)) {
 
             boolean possuiLetra = false;
@@ -60,6 +65,8 @@ public class Jogo {
     }
 
     public boolean adivinharPalavra(String palavra) {
+        palavra = palavra.toLowerCase(); // converte a palavra para minúscula
+
         if(isJogoIniciado() && !isJogoFinalizado()) {
 
             if(palavra.equals(save.getPalavra())) {
@@ -131,7 +138,15 @@ public class Jogo {
     }
 
     private String aleatorizarPalavra() {
-        return "banana"; // apenas para testes
+        List<String> lista = data.PegarListaDePalavras();
+
+        if(lista==null || lista.isEmpty()) {
+            return "banana"; // apenas para testes, dá para colocar uma lista padrão e fazer um random do mesmo jeito, só adicionar algumas palavras padrão
+        }
+
+        // Código para aleatorizar uma entre as palavras, não esqueça de usar .toLowerCase() antes de retornar a palavra
+
+        return "lua"; // apenas para testes, remove depois de implementar o aleatorizar
     }
 
     private void definirEstadoPadrao() {

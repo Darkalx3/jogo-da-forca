@@ -1,8 +1,9 @@
 package br.edu.unoesc.jogodaforca;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Save {
+public class Save implements Serializable {
 
     // Variáveis
 
