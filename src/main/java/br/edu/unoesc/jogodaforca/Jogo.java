@@ -1,5 +1,7 @@
 package br.edu.unoesc.jogodaforca;
 
+import java.util.ArrayList;
+
 public class Jogo {
 
     // Variáveis
@@ -32,9 +34,24 @@ public class Jogo {
     }
 
     public boolean adivinharLetra(char letra) {
-        if(isJogoIniciado() && !isJogoFinalizado()) {
+        if(isJogoIniciado() && !isJogoFinalizado() && !letraJaEscolhida(letra)) {
 
-            // Codigo para adivinhar letra
+            boolean possuiLetra = false;
+            String palavra = save.getPalavra();
+
+            for(int i=0;i<palavra.length();i++) {
+                if(letra == palavra.charAt(i)) {
+                    possuiLetra = true;
+                    break;
+                }
+            }
+
+            if(possuiLetra) {
+                save.acrescentarLetrasAdivinhadas(letra);
+            } else {
+                save.acrescentarLetrasErradas(letra);
+                save.diminuirQuantTentativas();
+            }
 
             verificarEstado();
             return true;
@@ -45,7 +62,11 @@ public class Jogo {
     public boolean adivinharPalavra(String palavra) {
         if(isJogoIniciado() && !isJogoFinalizado()) {
 
-            // Codigo para adivinhar palavra
+            if(palavra.equals(save.getPalavra())) {
+                this.jogadorGanhou = true;
+            } else {
+                save.diminuirQuantTentativas();
+            }
 
             verificarEstado();
             return true;
@@ -54,32 +75,15 @@ public class Jogo {
     }
 
     public boolean sair(boolean salvarJogo) {
-        if(isJogoIniciado() && !isJogoFinalizado() && salvarJogo) {
+        if(isJogoIniciado() && !isJogoFinalizado()) {
+            if(salvarJogo) {
                 data.salvarEstado(this.save);
-                jogadorSaiu = true;
-                jogoFinalizado = true;
-                return true;
+            }
+            jogoFinalizado = true;
+            jogadorSaiu = true;
+            return true;
         }
         return false;
-    }
-
-    // Métodos Privados
-
-    private String aleatorizarPalavra() {
-        return "Banana"; // apenas para testes
-    }
-
-    private void definirEstadoPadrao() {
-        this.jogoIniciado = true;
-        this.jogoFinalizado = false;
-        this.jogadorSaiu = false;
-        this.jogadorGanhou = false;
-    }
-
-    private void verificarEstado() {
-
-        /* essa função deve verificar o estado do jogo, se ele foi encerrado por quantidades de tentativas ou se o jogador ganhou */
-
     }
 
     // Métodos Get
@@ -102,5 +106,47 @@ public class Jogo {
 
     public boolean isJogadorSaiu() {
         return jogadorSaiu;
+    }
+
+    // Métodos Privados
+
+    private boolean letraJaEscolhida(char letra) {
+
+        ArrayList<Character> letrasAdvinhadas = save.getLetrasAdivinhadas();
+        ArrayList<Character> letrasErradas = save.getLetrasErradas();
+
+        for(int i=0;i<letrasAdvinhadas.size();i++) {
+            if(letrasAdvinhadas.get(i)==letra) {
+                return true;
+            }
+        }
+
+        for(int i=0;i<letrasErradas.size();i++) {
+            if(letrasErradas.get(i)==letra) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private String aleatorizarPalavra() {
+        return "banana"; // apenas para testes
+    }
+
+    private void definirEstadoPadrao() {
+        this.jogoIniciado = true;
+        this.jogoFinalizado = false;
+        this.jogadorSaiu = false;
+        this.jogadorGanhou = false;
+    }
+
+    private void verificarEstado() {
+        if (isJogadorGanhou() || save.getQuantTentativas()==0) {
+            this.jogoFinalizado = true;
+        } else if(save.getPalavraAdvinhada().equals(save.getPalavra())){
+            this.jogoFinalizado = true;
+            this.jogadorGanhou = true;
+        }
     }
 }

@@ -8,6 +8,7 @@ public class Save {
 
     private ArrayList<Character> letrasAdivinhadas;
     private ArrayList<Character> letrasErradas;
+    private String palavraAdvinhada;
     private String palavra;
     private int quantTentativas;
 
@@ -17,6 +18,7 @@ public class Save {
         /* quantTentativas pode ser por padrão 6 */
         this.quantTentativas = 6;
         this.palavra = palavra;
+        this.palavraAdvinhada = "";
         letrasAdivinhadas = new ArrayList<>();
         letrasErradas = new ArrayList<>();
     }
@@ -24,6 +26,7 @@ public class Save {
     public Save(String palavra, int quantTentativas) {
         this.quantTentativas = quantTentativas;
         this.palavra = palavra;
+        this.palavraAdvinhada = "";
         letrasAdivinhadas = new ArrayList<>();
         letrasErradas = new ArrayList<>();
     }
@@ -40,13 +43,22 @@ public class Save {
 
     public void acrescentarLetrasAdivinhadas(char letra) {
         letrasAdivinhadas.add(letra);
+
+        this.palavraAdvinhada = "";
+        for(int i=0;i<this.palavra.length();i++) {
+            if(letraFoiAdivinhada(this.palavra.charAt(i))) {
+                this.palavraAdvinhada += this.palavra.charAt(i);
+            } else {
+                this.palavraAdvinhada += ' ';
+            }
+        }
     }
 
     public void acrescentarLetrasErradas(char letra) {
         letrasErradas.add(letra);
     }
 
-    // Métodos Get
+    // Métodos Get e Set
 
     public ArrayList<Character> getLetrasAdivinhadas() {
         return letrasAdivinhadas;
@@ -62,6 +74,21 @@ public class Save {
 
     public int getQuantTentativas() {
         return quantTentativas;
+    }
+
+    public String getPalavraAdvinhada() {
+        return palavraAdvinhada;
+    }
+
+    // Métodos Privados
+
+    private boolean letraFoiAdivinhada(char letra) {
+        for(int i=0;i<this.letrasAdivinhadas.size();i++) {
+            if(this.letrasAdivinhadas.get(i)==letra) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }
