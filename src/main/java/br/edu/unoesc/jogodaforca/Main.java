@@ -69,6 +69,11 @@ public class Main {
                 cli.renderizarMenuFinal(jogo.retornarEstado(),jogo.isJogadorGanhou());
             }
         }
-
+        boolean salvar = cli.renderizarSair();
+        if (salvar) {
+            // Aqui você pode invocar alguma lógica de salvar, se houver.
+            System.out.println("Jogo salvo com sucesso!");
+        }
+        cli.mostrarMensagemSaida();
     }
 }

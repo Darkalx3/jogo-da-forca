@@ -37,9 +37,14 @@ public class CLI {
                                            " Sua opção: ", textError));
         }
 
-        // Fazer um try catch aqui
         System.out.flush();
-        return scan.nextInt();
+        while (true) {
+            try {
+                return Integer.parseInt(scan.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Entrada inválida. Digite um número (0, 1 ou 2).");
+                System.out.print(" Sua opção: ");
+            }
     }
 
     public int renderizarMenuOpcoes(Save save, String textError) { // retorna a opção escolhida no menu
@@ -94,9 +99,14 @@ public class CLI {
                                            " Sua opção: ", textError));
         }
 
-        // Fazer um try catch aqui
         System.out.flush();
-        return scan.nextInt();
+            while (true) {
+                try {
+                    return Integer.parseInt(scan.nextLine());
+                } catch (NumberFormatException e) {
+                    System.out.println("Entrada inválida. Digite um número (0, 1 ou 2).");
+                    System.out.print(" Sua opção: ");
+                }
     }
 
     public char renderizarAdivinharLetra() {
@@ -138,6 +148,17 @@ public class CLI {
     private void limparTela() {
         System.out.print("\033[H\033[2J");
         System.out.flush();
+    }
+
+    public boolean renderizarSair() {
+        System.out.println("Deseja salvar o jogo antes de sair? (s/n)");
+        Scanner scanner = new Scanner(System.in);
+        String resposta = scanner.nextLine().trim().toLowerCase();
+        return resposta.startsWith("s");
+    }
+
+    public void mostrarMensagemSaida() {
+        System.out.println("Obrigado por jogar!");
     }
 
     /* adicionem outras funções conforme a necessidade ...*/
