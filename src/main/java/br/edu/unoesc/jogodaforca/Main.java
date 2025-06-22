@@ -23,40 +23,41 @@ public class Main {
 
             // Verificações de Inicio de Jogo
 
-            if(opt==0) {
+            if (opt == 0) {
                 break;
-            } else if(opt==1) {
+            } else if (opt == 1) {
                 jogo.iniciarJogo();
                 errorMenu = null;
-            } else if(opt==2) {
-                if(!jogo.continuarJogo()) {
+            } else if (opt == 2) {
+                if (!jogo.continuarJogo()) {
                     errorMenu = "Não foi possível continuar o jogo";
                 } else {
                     errorMenu = null;
                 }
             }
 
-           // Loop da Partida
+            // Loop da Partida
 
-            while(jogo.isJogoIniciado() && !jogo.isJogoFinalizado()) {
+            while (jogo.isJogoIniciado() && !jogo.isJogoFinalizado()) {
                 opt = cli.renderizarMenuOpcoes(jogo.retornarEstado(), errorMenuOpcao);
 
                 // Verificação de Opções da Partida
 
-                if(opt==0) {
-                    jogo.sair(true); // Precisa de CLI para isso
+                if (opt == 0) {
+                    boolean salvar = cli.renderizarSair();
+                    jogo.sair(salvar); // Precisa de CLI para isso
                     errorMenuOpcao = null;
                     break;
-                } else if(opt==1) {
+                } else if (opt == 1) {
                     letra = cli.renderizarAdivinharLetra();
-                    if(!jogo.adivinharLetra(letra)) {
+                    if (!jogo.adivinharLetra(letra)) {
                         errorMenuOpcao = "Essa letra não é válida";
                     } else {
                         errorMenuOpcao = null;
                     }
-                } else if(opt==2) {
+                } else if (opt == 2) {
                     palavra = cli.renderizarAdivinharPalavra();
-                    if(!jogo.adivinharPalavra(palavra)) {
+                    if (!jogo.adivinharPalavra(palavra)) {
                         errorMenuOpcao = "Não foi possível adivinhar Palavra";
                     } else {
                         errorMenuOpcao = null;
@@ -66,14 +67,9 @@ public class Main {
 
             // Verifica o Final da Partida
 
-            if(errorMenu==null && !jogo.isJogadorSaiu()) {
-                cli.renderizarMenuFinal(jogo.retornarEstado(),jogo.isJogadorGanhou());
+            if (errorMenu == null && !jogo.isJogadorSaiu()) {
+                cli.renderizarMenuFinal(jogo.retornarEstado(), jogo.isJogadorGanhou());
             }
-        }
-        boolean salvar = cli.renderizarSair();
-        if (salvar) {
-            // Aqui você pode invocar alguma lógica de salvar, se houver.
-            System.out.println("Jogo salvo com sucesso!");
         }
         cli.mostrarMensagemSaida();
     }
