@@ -37,12 +37,12 @@ public class CLI {
                                            " Sua opção: ", textError));
         }
 
-        System.out.flush();
         while (true) {
             try {
-                return Integer.parseInt(scan.nextLine());
+                System.out.flush();
+                return Integer.parseInt(scan.next());
             } catch (NumberFormatException e) {
-                System.out.println("Entrada inválida. Digite um número (0, 1 ou 2).");
+                System.out.println(" Entrada inválida. Digite um número (0, 1 ou 2).");
                 System.out.print(" Sua opção: ");
             }
         }
@@ -73,9 +73,9 @@ public class CLI {
 
         ArrayList<Character> letrasErradas = save.getLetrasErradas();
 
-        for(int i=0;i<letrasErradas.size();i++) {
+        for (Character letrasErrada : letrasErradas) {
             System.out.print(" ");
-                System.out.print(String.format("%c ", Character.toUpperCase(letrasErradas.get(i))));
+            System.out.print(String.format("%c ", Character.toUpperCase(letrasErrada)));
         }
         System.out.print("\n");
 
@@ -100,12 +100,12 @@ public class CLI {
                                            " Sua opção: ", textError));
         }
 
-        System.out.flush();
         while (true) {
             try {
-                return Integer.parseInt(scan.nextLine());
+                System.out.flush();
+                return Integer.parseInt(scan.next());
             } catch (NumberFormatException e) {
-                System.out.println("Entrada inválida. Digite um número (0, 1 ou 2).");
+                System.out.println(" Entrada inválida. Digite um número (0, 1 ou 2).");
                 System.out.print(" Sua opção: ");
             }
         }
@@ -145,24 +145,20 @@ public class CLI {
         scan.next();
     }
 
+    public boolean renderizarSair() {
+        System.out.print(" -\n Deseja salvar o jogo antes de sair? (s/n) ");
+        String resposta = scan.next().trim().toLowerCase();
+        return resposta.startsWith("s");
+    }
+
+    public void mostrarMensagemSaida() {
+        System.out.print(" Obrigado por jogar!");
+    }
+
     // Funções Privadas
 
     private void limparTela() {
         System.out.print("\033[H\033[2J");
         System.out.flush();
     }
-
-    public boolean renderizarSair() {
-        System.out.println("Deseja salvar o jogo antes de sair? (s/n)");
-        Scanner scanner = new Scanner(System.in);
-        String resposta = scanner.nextLine().trim().toLowerCase();
-        return resposta.startsWith("s");
-    }
-
-    public void mostrarMensagemSaida() {
-        System.out.println("Obrigado por jogar!");
-    }
-
-    /* adicionem outras funções conforme a necessidade ...*/
-
 }

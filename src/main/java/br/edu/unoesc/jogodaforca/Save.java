@@ -7,6 +7,7 @@ public class Save implements Serializable {
 
     // Variáveis
 
+    private static final long serialVersionUID = 2L;
     private ArrayList<Character> letrasAdivinhadas;
     private ArrayList<Character> letrasErradas;
     private String palavraAdvinhada;

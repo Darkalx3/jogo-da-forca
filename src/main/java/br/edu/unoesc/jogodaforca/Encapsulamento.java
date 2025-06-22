@@ -72,6 +72,8 @@ public class Encapsulamento {
                 estado = (Save) obj.readObject();
                 obj.close();
             }
+        } catch (InvalidClassException y) {
+            System.out.print("Erro: versão da classe é incompatível.");
         } catch (ClassNotFoundException | IOException e) {
             System.out.print(String.format("Erro: %s\n", e.getMessage()));
         }

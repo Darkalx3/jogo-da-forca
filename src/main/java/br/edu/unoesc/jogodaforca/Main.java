@@ -1,5 +1,7 @@
 package br.edu.unoesc.jogodaforca;
 
+import javax.crypto.ExemptionMechanismException;
+
 public class Main {
     public static void main(String[] args) {
 
@@ -34,35 +36,44 @@ public class Main {
                 } else {
                     errorMenu = null;
                 }
+            } else {
+                errorMenu = "A opção não existe";
             }
 
             // Loop da Partida
 
-            while (jogo.isJogoIniciado() && !jogo.isJogoFinalizado()) {
-                opt = cli.renderizarMenuOpcoes(jogo.retornarEstado(), errorMenuOpcao);
+            try {
+                while (jogo.isJogoIniciado() && !jogo.isJogoFinalizado()) {
+                    opt = cli.renderizarMenuOpcoes(jogo.retornarEstado(), errorMenuOpcao);
 
-                // Verificação de Opções da Partida
+                    // Verificação de Opções da Partida
 
-                if (opt == 0) {
-                    boolean salvar = cli.renderizarSair();
-                    jogo.sair(salvar); // Precisa de CLI para isso
-                    errorMenuOpcao = null;
-                    break;
-                } else if (opt == 1) {
-                    letra = cli.renderizarAdivinharLetra();
-                    if (!jogo.adivinharLetra(letra)) {
-                        errorMenuOpcao = "Essa letra não é válida";
-                    } else {
+                    if (opt == 0) {
+                        boolean salvar = cli.renderizarSair();
+                        jogo.sair(salvar); // Precisa de CLI para isso
                         errorMenuOpcao = null;
-                    }
-                } else if (opt == 2) {
-                    palavra = cli.renderizarAdivinharPalavra();
-                    if (!jogo.adivinharPalavra(palavra)) {
-                        errorMenuOpcao = "Não foi possível adivinhar Palavra";
+                        break;
+                    } else if (opt == 1) {
+                        letra = cli.renderizarAdivinharLetra();
+                        if (!jogo.adivinharLetra(letra)) {
+                            errorMenuOpcao = "Essa letra não é válida";
+                        } else {
+                            errorMenuOpcao = null;
+                        }
+                    } else if (opt == 2) {
+                        palavra = cli.renderizarAdivinharPalavra();
+                        if (!jogo.adivinharPalavra(palavra)) {
+                            errorMenuOpcao = "Não foi possível adivinhar Palavra";
+                        } else {
+                            errorMenuOpcao = null;
+                        }
                     } else {
-                        errorMenuOpcao = null;
+                        errorMenuOpcao = "A opção não existe";
                     }
                 }
+            } catch (Exception e) {
+                errorMenu = "Aconteceu um erro durante sua partida";
+                jogo = new Jogo();
             }
 
             // Verifica o Final da Partida
