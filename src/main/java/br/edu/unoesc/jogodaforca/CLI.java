@@ -57,16 +57,17 @@ public class CLI {
                         " -----------------------------------------------\n\n  "
                         );
 
+        // Tentativas
+        printarForca(save.getQuantTentativas());
 
         // Print Palavra Adivinhada
-
         String palavraAdvinhada = save.getPalavraAdvinhada();
+        System.out.print("  ");
         for(int i=0;i<palavraAdvinhada.length();i++) { // imprime a palavra adivinhada até agora
             System.out.print(String.format("%c ", Character.toUpperCase(palavraAdvinhada.charAt(i))));
         }
 
         // Print Letras Erradas
-
         System.out.print("\n"+
                          " ----------------LETRAS ERRADAS-----------------\n "
         );
@@ -79,11 +80,6 @@ public class CLI {
         }
         System.out.print("\n");
 
-        // Tentativas
-
-        System.out.print(String.format(" -----------------------------------------------\n"+
-                                       " TENTATIVAS: %d\n", save.getQuantTentativas()));
-
         // Print Menu de Opções
 
         System.out.print(" -----------------------------------------------\n"+
@@ -92,23 +88,25 @@ public class CLI {
                          " [0] Sair da Partida\n"+
                          " -----------------------------------------------\n");
 
-        if(textError==null) {
-            System.out.print(" Sua opção: ");
-        } else {
-            System.out.print(String.format(" ERRO: %s\n"+
-                                           " -----------------------------------------------\n"+
-                                           " Sua opção: ", textError));
-        }
-
-        while (true) {
-            try {
-                System.out.flush();
-                return Integer.parseInt(scan.next());
-            } catch (NumberFormatException e) {
-                System.out.println(" Entrada inválida. Digite um número (0, 1 ou 2).");
+        if(save.getQuantTentativas() > 0) {
+            if(textError==null) {
                 System.out.print(" Sua opção: ");
+            } else {
+                System.out.print(String.format(" ERRO: %s\n"+
+                                            " -----------------------------------------------\n"+
+                                            " Sua opção: ", textError));
             }
-        }
+        
+            while (true) {
+                try {
+                    System.out.flush();
+                    return Integer.parseInt(scan.next());
+                } catch (NumberFormatException e) {
+                    System.out.println(" Entrada inválida. Digite um número (0, 1 ou 2).");
+                    System.out.print(" Sua opção: ");
+                }
+            }
+        } else return 0; // Se o jogador perdeu, retorna 0 para sair do jogo
     }
 
     public char renderizarAdivinharLetra() {
@@ -160,5 +158,89 @@ public class CLI {
     private void limparTela() {
         System.out.print("\033[H\033[2J");
         System.out.flush();
+    }
+
+    private void printarForca(int Tentativas) {
+        switch (Tentativas) {
+            case 0:
+                System.out.print(
+                    "    _______\n" +
+                    "   |/      |\n" +
+                    "   |      (_)\n" +
+                    "   |      /|\\\n" +
+                    "   |      / \\\n" +
+                    "   |\n" +
+                    "  _|___\n\n"
+                );
+                break;
+            case 1:
+                System.out.print(
+                    "    _______\n" +
+                    "   |/      |\n" +
+                    "   |      (_)\n" +
+                    "   |      /|\\\n" +
+                    "   |      /\n" +
+                    "   |\n" +
+                    "  _|___\n\n"
+                );
+                break;
+            case 2:
+                System.out.print(
+                    "    _______\n" +
+                    "   |/      |\n" +
+                    "   |      (_)\n" +
+                    "   |      /|\\\n" +
+                    "   |\n" +
+                    "   |\n" +
+                    "  _|___\n\n"
+                );
+                break;
+            case 3:
+                System.out.print(
+                    "    _______\n" +
+                    "   |/      |\n" +
+                    "   |      (_)\n" +
+                    "   |      /|\n" +
+                    "   |\n" +
+                    "   |\n" +
+                    "  _|___\n\n"
+                );
+                break;
+            case 4:
+                System.out.print(
+                    "    _______\n" +
+                    "   |/      |\n" +
+                    "   |      (_)\n" +
+                    "   |       |\n" +
+                    "   |\n" +
+                    "   |\n" +
+                    "  _|___\n\n"
+                );
+                break;
+            case 5:
+                System.out.print(
+                    "    _______\n" +
+                    "   |/      |\n" +
+                    "   |      (_)\n" +
+                    "   |\n" +
+                    "   |\n" +
+                    "   |\n" +
+                    "  _|___\n\n"
+                );
+                break;
+            case 6:
+                System.out.print(
+                    "    _______\n" +
+                    "   |/      |\n" +
+                    "   |\n" +
+                    "   |\n" +
+                    "   |\n" +
+                    "   |\n" +
+                    "  _|___\n\n"
+                );
+                break;
+            default:
+                System.out.print("Erro ao renderizar a forca.");
+        }
     }
 }

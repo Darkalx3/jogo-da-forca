@@ -79,6 +79,7 @@ public class Main {
             // Verifica o Final da Partida
 
             if (errorMenu == null && !jogo.isJogadorSaiu()) {
+                cli.renderizarMenuOpcoes(jogo.retornarEstado(), errorMenuOpcao);
                 cli.renderizarMenuFinal(jogo.retornarEstado(), jogo.isJogadorGanhou());
             }
         }
