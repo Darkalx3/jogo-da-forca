@@ -1,7 +1,9 @@
 package br.edu.unoesc.jogodaforca;
 
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class Jogo {
 
@@ -67,8 +69,13 @@ public class Jogo {
         return false;
     }
 
+
     public boolean adivinharPalavra(String palavra) {
+        
         palavra = palavra.toLowerCase(); // converte a palavra para minúscula
+       
+        //POR ALGUM MOTIVO NÂO FUNCIONA COM O QUE VEM DO BUFFER 
+        palavra = removerAcentos(palavra); // remove acentos da palavra 
 
         if(isJogoIniciado() && !isJogoFinalizado()) {
 
@@ -119,7 +126,6 @@ public class Jogo {
     }
 
     // Métodos Privados
-
     private boolean letraJaEscolhida(char letra) {
 
         ArrayList<Character> letrasAdvinhadas = save.getLetrasAdivinhadas();
@@ -148,7 +154,10 @@ public class Jogo {
         }
 
         int indice = (int) (Math.random() * lista.size());
-        return lista.get(indice).toLowerCase();
+        String palavra = lista.get(indice).toLowerCase();
+        palavra = removerAcentos(palavra); // remove acentos da palavra
+
+        return palavra;
     }
 
     private void definirEstadoPadrao() {
@@ -167,5 +176,19 @@ public class Jogo {
             this.jogadorGanhou = true;
             data.zerarEstado();
         }
+    }
+
+    private static String removerAcentos(String texto) {
+        if (texto == null) {
+            return null;
+        }
+        // 1. Normaliza o texto para a forma de decomposição canônica (NFD)
+        String textoNormalizado = Normalizer.normalize(texto, Normalizer.Form.NFD);
+        
+        // 2. Define o padrão de regex para encontrar diacríticos (acentos)
+        Pattern padrao = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
+        
+        // 3. Remove os acentos substituindo-os por uma string vazia
+        return padrao.matcher(textoNormalizado).replaceAll("");
     }
 }

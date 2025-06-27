@@ -1,7 +1,9 @@
 package br.edu.unoesc.jogodaforca;
 
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 public class CLI {
 
@@ -149,7 +151,7 @@ public class CLI {
             System.out.print(" ");
             System.out.print(String.format("%c ", Character.toUpperCase(letrasErrada)));
         }
-        
+
         System.out.print("\n");
         if(jogadorGanhou) {
             System.out.print(" -----------------------------------------------\n"+
@@ -336,7 +338,7 @@ public class CLI {
                             "   |      \\(_)\n" +
                             "   |       /|\\ \n" +
                             "   |   _   / \\  _\n" +
-                            "   |   | \\ b b  /|\n"+
+                            "   |   | \\ b b /|\n"+
                             "   |   |        |\n" +
                             "  _|__ |        |\n\n"
                             );
