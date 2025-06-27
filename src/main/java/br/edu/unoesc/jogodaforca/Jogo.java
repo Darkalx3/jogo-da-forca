@@ -42,7 +42,12 @@ public class Jogo {
     }
 
     public boolean adivinharLetra(char letra) {
+        letra = removerAcentos(Character.toString(letra)).charAt(0); // remove acentos da palavra
         letra = Character.toLowerCase(letra); // converte a letra para minúscula
+
+        if(existeLetraInvalida(letra)) { // verifica se o que foi digitado não é uma letra
+            return false;
+        }
 
         if(isJogoIniciado() && !isJogoFinalizado() && !letraJaEscolhida(letra)) {
 
@@ -73,8 +78,6 @@ public class Jogo {
     public boolean adivinharPalavra(String palavra) {
         
         palavra = palavra.toLowerCase(); // converte a palavra para minúscula
-       
-        //POR ALGUM MOTIVO NÂO FUNCIONA COM O QUE VEM DO BUFFER 
         palavra = removerAcentos(palavra); // remove acentos da palavra 
 
         if(isJogoIniciado() && !isJogoFinalizado()) {
@@ -176,6 +179,18 @@ public class Jogo {
             this.jogadorGanhou = true;
             data.zerarEstado();
         }
+    }
+
+    private static boolean existeLetraInvalida(char letra) {
+        if(letra == 'a' || letra == 'b' || letra == 'c' || letra == 'd' || letra == 'e' ||
+           letra == 'f' || letra == 'g' || letra == 'h' || letra == 'i' || letra == 'j' ||
+           letra == 'k' || letra == 'l' || letra == 'm' || letra == 'n' || letra == 'o' ||
+           letra == 'p' || letra == 'q' || letra == 'r' || letra == 's' || letra == 't' ||
+           letra == 'u' || letra == 'v' || letra == 'w' || letra == 'x' || letra == 'y' ||
+           letra == 'z') {
+            return false;
+        }
+        return true;
     }
 
     private static String removerAcentos(String texto) {
