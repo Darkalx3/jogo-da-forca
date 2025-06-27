@@ -81,32 +81,30 @@ public class CLI {
         System.out.print("\n");
 
         // Print Menu de Opções
-
         System.out.print(" -----------------------------------------------\n"+
                          " [1] Adivinhar Letra\n"+
                          " [2] Adivinhar Palavra\n"+
                          " [0] Sair da Partida\n"+
                          " -----------------------------------------------\n");
 
-        if(save.getQuantTentativas() > 0) {
-            if(textError==null) {
-                System.out.print(" Sua opção: ");
-            } else {
-                System.out.print(String.format(" ERRO: %s\n"+
-                                            " -----------------------------------------------\n"+
-                                            " Sua opção: ", textError));
-            }
         
-            while (true) {
-                try {
-                    System.out.flush();
-                    return Integer.parseInt(scan.next());
-                } catch (NumberFormatException e) {
-                    System.out.println(" Entrada inválida. Digite um número (0, 1 ou 2).");
-                    System.out.print(" Sua opção: ");
-                }
+        if(textError==null) {
+            System.out.print(" Sua opção: ");
+        } else {
+            System.out.print(String.format(" ERRO: %s\n"+
+                                        " -----------------------------------------------\n"+
+                                        " Sua opção: ", textError));
+        }
+        
+        while (true) {
+            try {
+                System.out.flush();
+                return Integer.parseInt(scan.next());
+            } catch (NumberFormatException e) {
+                System.out.println(" Entrada inválida. Digite um número (0, 1 ou 2).");
+                System.out.print(" Sua opção: ");
             }
-        } else return 0; // Se o jogador perdeu, retorna 0 para sair do jogo
+        }
     }
 
     public char renderizarAdivinharLetra() {
@@ -124,6 +122,35 @@ public class CLI {
     }
 
     public void renderizarMenuFinal(Save save, boolean jogadorGanhou) {
+        limparTela();
+        System.out.print("\n"+
+                        " -----------------------------------------------\n"+
+                        "                 JOGO DA FORCA\n"+
+                        " -----------------------------------------------\n\n  "
+                        );
+
+        //Forca
+        printarForca(save.getQuantTentativas());
+
+        // Print Palavra Adivinhada
+        String palavraAdvinhada = save.getPalavraAdvinhada();
+        System.out.print("  ");
+        for(int i=0;i<palavraAdvinhada.length();i++) { // imprime a palavra adivinhada até agora
+            System.out.print(String.format("%c ", Character.toUpperCase(palavraAdvinhada.charAt(i))));
+        }
+
+        // Print Letras Erradas
+        System.out.print("\n"+
+                         " ----------------LETRAS ERRADAS-----------------\n "
+        );
+        ArrayList<Character> letrasErradas = save.getLetrasErradas();
+
+        for (Character letrasErrada : letrasErradas) {
+            System.out.print(" ");
+            System.out.print(String.format("%c ", Character.toUpperCase(letrasErrada)));
+        }
+        
+        System.out.print("\n");
         if(jogadorGanhou) {
             System.out.print(" -----------------------------------------------\n"+
                              "              PARABÉNS, VOCÊ GANHOU\n"+
@@ -154,7 +181,6 @@ public class CLI {
     }
 
     // Funções Privadas
-
     private void limparTela() {
         System.out.print("\033[H\033[2J");
         System.out.flush();
@@ -254,7 +280,7 @@ public class CLI {
         }
     }
 
-    public void printarAnimacaoFimDeJogo(){
+    private void printarAnimacaoFimDeJogo(){
         try {
             for (int i = 0; i < 12; i++) {
                 limparTela();
@@ -310,7 +336,7 @@ public class CLI {
                             "   |      \\(_)\n" +
                             "   |       /|\\ \n" +
                             "   |   _   / \\  _\n" +
-                            "   |   | \\b b  /|\n"+
+                            "   |   | \\ b b  /|\n"+
                             "   |   |        |\n" +
                             "  _|__ |        |\n\n"
                             );
@@ -436,8 +462,8 @@ public class CLI {
                             "   |       |\n" +
                             "   |       (_)\n" +
                             "   |   _   |||  _\n" +
-                            "   |   ||   || ||\n"+
-                            "   |   |    b b |\n" +
+                            "   |   ||  ||  ||\n"+
+                            "   |   |   b b  |\n" +
                             "  _|__ |        |\n\n"
                             );
         }

@@ -77,7 +77,6 @@ public class Save implements Serializable {
     }
 
     // Métodos Privados
-
     private boolean letraFoiAdivinhada(char letra) {
         for(int i=0;i<this.letrasAdivinhadas.size();i++) {
             if(this.letrasAdivinhadas.get(i)==letra) {
