@@ -3,7 +3,7 @@ package br.edu.unoesc.jogodaforca;
 import javax.crypto.ExemptionMechanismException;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args){
 
         // Variáveis
 
@@ -67,7 +67,7 @@ public class Main {
                         } else {
                             errorMenuOpcao = null;
                         }
-                    } else {
+                    } else{
                         errorMenuOpcao = "A opção não existe";
                     }
                 }

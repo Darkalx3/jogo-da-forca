@@ -48,7 +48,7 @@ public class CLI {
         }
     }
 
-    public int renderizarMenuOpcoes(Save save, String textError) { // retorna a opção escolhida no menu
+    public int renderizarMenuOpcoes(Save save, String textError){ // retorna a opção escolhida no menu
 
         limparTela();
         System.out.print("\n"+
@@ -160,87 +160,287 @@ public class CLI {
         System.out.flush();
     }
 
-    private void printarForca(int Tentativas) {
+    private void printarForca(int Tentativas){
         switch (Tentativas) {
             case 0:
-                System.out.print(
-                    "    _______\n" +
-                    "   |/      |\n" +
-                    "   |      (_)\n" +
-                    "   |      /|\\\n" +
-                    "   |      / \\\n" +
-                    "   |\n" +
-                    "  _|___\n\n"
-                );
+                printarAnimacaoFimDeJogo();
                 break;
             case 1:
                 System.out.print(
                     "    _______\n" +
-                    "   |/      |\n" +
-                    "   |      (_)\n" +
-                    "   |      /|\\\n" +
-                    "   |      /\n" +
-                    "   |\n" +
-                    "  _|___\n\n"
+                    "   |/      T\n" +
+                    "   |      /\n"+
+                    "   |     |_(_) \n" +
+                    "   |       /|\\ \n" +
+                    "   |       /    \n" +
+                    "   |   ____b_____\n"+
+                    "   |   |        |\n" +
+                    "   |   |        |\n" +
+                    "  _|__ |        |\n\n"
                 );
                 break;
             case 2:
                 System.out.print(
                     "    _______\n" +
-                    "   |/      |\n" +
-                    "   |      (_)\n" +
-                    "   |      /|\\\n" +
-                    "   |\n" +
-                    "   |\n" +
-                    "  _|___\n\n"
+                    "   |/      T\n" +
+                    "   |      /\n"+
+                    "   |     |_(_) \n" +
+                    "   |       /|\\ \n" +
+                    "   |           \n" +
+                    "   |   __________\n"+
+                    "   |   |        |\n" +
+                    "   |   |        |\n" +
+                    "  _|__ |        |\n\n"
                 );
                 break;
             case 3:
                 System.out.print(
                     "    _______\n" +
-                    "   |/      |\n" +
-                    "   |      (_)\n" +
-                    "   |      /|\n" +
-                    "   |\n" +
-                    "   |\n" +
-                    "  _|___\n\n"
+                    "   |/      T\n" +
+                    "   |      /\n"+
+                    "   |     |_(_)\n" +
+                    "   |       /| \n" +
+                    "   |           \n" +
+                    "   |   __________\n"+
+                    "   |   |        |\n" +
+                    "   |   |        |\n" +
+                    "  _|__ |        |\n\n"
                 );
                 break;
             case 4:
                 System.out.print(
                     "    _______\n" +
-                    "   |/      |\n" +
-                    "   |      (_)\n" +
-                    "   |       |\n" +
+                    "   |/      T\n" +
+                    "   |      /\n"+
+                    "   |     |_(_)\n" +
+                    "   |        | \n" +
                     "   |\n" +
-                    "   |\n" +
-                    "  _|___\n\n"
+                    "   |   __________\n"+
+                    "   |   |        |\n" +
+                    "   |   |        |\n" +
+                    "  _|__ |        |\n\n"
                 );
                 break;
             case 5:
                 System.out.print(
                     "    _______\n" +
-                    "   |/      |\n" +
-                    "   |      (_)\n" +
-                    "   |\n" +
-                    "   |\n" +
-                    "   |\n" +
-                    "  _|___\n\n"
+                    "   |/      T\n" +
+                    "   |      /\n"+
+                    "   |     |_(_)\n" +
+                    "   |       \n" +
+                    "   |       \n" +
+                    "   |   __________\n"+
+                    "   |   |        |\n" +
+                    "   |   |        |\n" +
+                    "  _|__ |        |\n\n"
                 );
                 break;
             case 6:
                 System.out.print(
                     "    _______\n" +
-                    "   |/      |\n" +
-                    "   |\n" +
-                    "   |\n" +
-                    "   |\n" +
-                    "   |\n" +
-                    "  _|___\n\n"
+                    "   |/      T\n" +
+                    "   |       |\n"+
+                    "   |       |\n" +
+                    "   |       |\n" +
+                    "   |      \n" +
+                    "   |   __________\n"+
+                    "   |   |        |\n" +
+                    "   |   |        |\n" +
+                    "  _|__ |        |\n\n"
                 );
                 break;
             default:
                 System.out.print("Erro ao renderizar a forca.");
         }
     }
+
+    public void printarAnimacaoFimDeJogo(){
+        try {
+            for (int i = 0; i < 12; i++) {
+                limparTela();
+                System.out.print("\n"+
+                            " -----------------------------------------------\n"+
+                            "                 JOGO DA FORCA\n"+
+                            " -----------------------------------------------\n\n  "
+                            );
+                printarFrame(i);
+                Thread.sleep(1000);
+            }
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+    }
+    
+    private void printarFrame(int frame){
+        switch (frame) {
+            case 0:
+                System.out.print(
+                            "    _______\n" +
+                            "   |/      T\n" +
+                            "   |      /\n"+
+                            "   |     |_(_)\n" +
+                            "   |       /|\\ \n" +
+                            "   |       / \\ \n" +
+                            "   |   ____b_b___\n"+
+                            "   |   |        |\n" +
+                            "   |   |        |\n" +
+                            "  _|__ |        |\n\n"
+                );
+            break;
+            case 1:
+                System.out.print(
+                            "    _______\n" +
+                            "   |/      T\n" +
+                            "   |      /\n"+
+                            "   |     |_(_)\n" +
+                            "   |       /|\\ \n" +
+                            "   |       / \\ \n" +
+                            "   |   _   b b  _\n"+
+                            "   |   | \\     /|\n" +
+                            "   |   |        |\n" +
+                            "  _|__ |        |\n\n"
+                        );
+            break;
+            case 2:
+                System.out.print(
+                            "    _______\n" +
+                            "   |/      T\n" +
+                            "   |       /\n"+
+                            "   |      |\n"+
+                            "   |      \\(_)\n" +
+                            "   |       /|\\ \n" +
+                            "   |   _   / \\  _\n" +
+                            "   |   | \\b b  /|\n"+
+                            "   |   |        |\n" +
+                            "  _|__ |        |\n\n"
+                            );
+            break;
+            case 3:
+                System.out.print(
+                            "    _______\n" +
+                            "   |/      T\n" +
+                            "   |       |\n"+
+                            "   |       |\n"+
+                            "   |       |\n" +
+                            "   |      \\(_)/ \n" +
+                            "   |   _    |   _\n" +
+                            "   |   ||  / | ||\n"+
+                            "   |   |   b b  |\n" +
+                            "  _|__ |        |\n\n"
+                            );
+            break;
+            case 4:
+                System.out.print(
+                            "    _______\n" +
+                            "   |/      T\n" +
+                            "   |       |\n"+
+                            "   |       |\n"+
+                            "   |       |\n" +
+                            "   |       (_)\n" +
+                            "   |   _   /|\\  _\n" +
+                            "   |   ||   |\\ ||\n"+
+                            "   |   |    b b |\n" +
+                            "  _|__ |        |\n\n"
+                            );
+            break;
+            case 5:
+                System.out.print(
+                            "    _______\n" +
+                            "   |/      T\n" +
+                            "   |       |\n"+
+                            "   |       |\n"+
+                            "   |       |\n" +
+                            "   |      \\(_)/ \n" +
+                            "   |   _    |   _\n" +
+                            "   |   ||  / | ||\n"+
+                            "   |   |   b b  |\n" +
+                            "  _|__ |        |\n\n"
+                            );
+            break;
+            case 6:
+                System.out.print(
+                            "    _______\n" +
+                            "   |/      T\n" +
+                            "   |       |\n"+
+                            "   |       |\n"+
+                            "   |       |\n" +
+                            "   |       (_)\n" +
+                            "   |   _   /|\\  _\n" +
+                            "   |   ||   |\\ ||\n"+
+                            "   |   |    b b |\n" +
+                            "  _|__ |        |\n\n"
+                            );
+            break;
+            case 7:
+                System.out.print(
+                            "    _______\n" +
+                            "   |/      T\n" +
+                            "   |       |\n"+
+                            "   |       |\n"+
+                            "   |       |\n" +
+                            "   |      \\(_)/ \n" +
+                            "   |   _    |   _\n" +
+                            "   |   ||  / | ||\n"+
+                            "   |   |   b b  |\n" +
+                            "  _|__ |        |\n\n"
+                            );
+            break;
+            case 8:
+                System.out.print(
+                            "    _______\n" +
+                            "   |/      T\n" +
+                            "   |       |\n"+
+                            "   |       |\n"+
+                            "   |       |\n" +
+                            "   |       (_)\n" +
+                            "   |   _   /|\\  _\n" +
+                            "   |   ||   |\\ ||\n"+
+                            "   |   |    b b |\n" +
+                            "  _|__ |        |\n\n"
+                            );
+            break;
+            case 9:
+                System.out.print(
+                            "    _______\n" +
+                            "   |/      T\n" +
+                            "   |       |\n"+
+                            "   |       |\n"+
+                            "   |       |\n" +
+                            "   |      \\(_)/ \n" +
+                            "   |   _    |   _\n" +
+                            "   |   ||  / | ||\n"+
+                            "   |   |   b b  |\n" +
+                            "  _|__ |        |\n\n"
+                            );
+            break;
+            case 10:
+                System.out.print(
+                            "    _______\n" +
+                            "   |/      T\n" +
+                            "   |       |\n"+
+                            "   |       |\n"+
+                            "   |       |\n" +
+                            "   |       (_)\n" +
+                            "   |   _   /|\\  _\n" +
+                            "   |   ||   |\\ ||\n"+
+                            "   |   |    b b |\n" +
+                            "  _|__ |        |\n\n"
+                            );
+            break;
+            case 11:
+                System.out.print(
+                            "    _______\n" +
+                            "   |/      T\n" +
+                            "   |       |\n"+
+                            "   |       |\n"+
+                            "   |       |\n" +
+                            "   |       (_)\n" +
+                            "   |   _   |||  _\n" +
+                            "   |   ||   || ||\n"+
+                            "   |   |    b b |\n" +
+                            "  _|__ |        |\n\n"
+                            );
+        }
+    }
+
 }
