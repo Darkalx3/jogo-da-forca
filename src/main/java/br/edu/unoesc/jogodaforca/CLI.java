@@ -52,7 +52,7 @@ public class CLI {
 
     public int renderizarMenuOpcoes(Save save, String textError){ // retorna a opção escolhida no menu
 
-        //limparTela();
+        limparTela();
         System.out.print("\n"+
                         " -----------------------------------------------\n"+
                         "                 JOGO DA FORCA\n"+
