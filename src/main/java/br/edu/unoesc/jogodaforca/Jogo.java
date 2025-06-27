@@ -42,6 +42,8 @@ public class Jogo {
     }
 
     public boolean adivinharLetra(char letra) {
+        String letraString = String.valueOf(letra);
+        letra = removerAcentos(letraString).charAt(0); // remove acentos da letra
         letra = Character.toLowerCase(letra); // converte a letra para minúscula
 
         if(isJogoIniciado() && !isJogoFinalizado() && !letraJaEscolhida(letra)) {
@@ -73,10 +75,10 @@ public class Jogo {
     public boolean adivinharPalavra(String palavra) {
         
         palavra = palavra.toLowerCase(); // converte a palavra para minúscula
-       
+        System.out.print(palavra + "\n");
         //POR ALGUM MOTIVO NÂO FUNCIONA COM O QUE VEM DO BUFFER 
         palavra = removerAcentos(palavra); // remove acentos da palavra 
-
+        System.out.print(palavra + "\n");
         if(isJogoIniciado() && !isJogoFinalizado()) {
 
             if(palavra.equals(save.getPalavraEscolhida())) {
