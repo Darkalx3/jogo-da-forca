@@ -187,7 +187,7 @@ public class Jogo {
            letra == 'k' || letra == 'l' || letra == 'm' || letra == 'n' || letra == 'o' ||
            letra == 'p' || letra == 'q' || letra == 'r' || letra == 's' || letra == 't' ||
            letra == 'u' || letra == 'v' || letra == 'w' || letra == 'x' || letra == 'y' ||
-           letra == 'z') {
+           letra == 'z' || letra == '-') {
             return false;
         }
         return true;
