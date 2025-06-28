@@ -10,10 +10,10 @@ public class Encapsulamento {
 
     // Variáveis
 
-    Path dir;
-    Path words;
-    Path readme;
-    Path state;
+    private Path dir;
+    private Path words;
+    private Path readme;
+    private Path state;
 
     // Contrutor
 

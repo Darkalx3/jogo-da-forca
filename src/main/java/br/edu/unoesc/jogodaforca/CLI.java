@@ -9,7 +9,7 @@ public class CLI {
 
     // Variáveis
 
-    Scanner scan;
+    private Scanner scan;
 
     // Construtor
 
