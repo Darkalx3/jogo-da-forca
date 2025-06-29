@@ -1,9 +1,12 @@
-## Branch para o Source Code do Projeto
+## Source Code
 
-Usem essa branch para colocar o source code do projeto.
+### Sobre
 
-Requisitos:
+Essa branch contém todos os commits e arquivos de código.
+
+### Requisitos:
 
 - OpenJDK 17
-- Maven (construtor de código)
+- IntelijIDEA / Vscode com supote ao Maven
+
 
