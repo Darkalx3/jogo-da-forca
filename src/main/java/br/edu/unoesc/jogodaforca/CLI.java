@@ -160,8 +160,8 @@ public class CLI {
                              " -----------------------------------------------\n");
         } else {
             System.out.print(" -----------------------------------------------\n"+
-                             "            INFELIZMENTE, VOCÊ FEZ O L\n"+
-                             "                NO JOGO DA FORCA\n"+
+                             "            INFELIZMENTE, VOCÊ PERDEU\n"+
+                             "                O JOGO DA FORCA\n"+
                              " -----------------------------------------------\n");
         }
         System.out.print(String.format("  A PALAVRA ERA: %s\n"+

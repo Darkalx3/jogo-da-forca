@@ -1,1 +1,0 @@
-Coloque as palavra a serem usadas, uma em cada linha em words.txt 
