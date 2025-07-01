@@ -5,34 +5,44 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
+/**
+ * Classe principal do jogo da forca.
+ * Gerencia o estado do jogo, as tentativas do jogador, e a lógica de adivinhação.
+ */
 public class Jogo {
 
-    // Variáveis
+    // Flags de controle do estado do jogo
+    private boolean jogoIniciado;   // Indica se o jogo foi iniciado
+    private boolean jogoFinalizado; // Indica se o jogo foi finalizado
+    private boolean jogadorGanhou;  // Indica se o jogador venceu
+    private boolean jogadorSaiu;    // Indica se o jogador saiu do jogo antes do fim
 
-    private boolean jogoIniciado;
-    private boolean jogoFinalizado;
-    private boolean jogadorGanhou;
-    private boolean jogadorSaiu;
-    private Save save;
-    private Encapsulamento data;
+    // Objetos auxiliares
+    private Save save;              // Guarda o estado atual do jogo (palavra, tentativas, letras)
+    private Encapsulamento data;    // Responsável por salvar, carregar e limpar o estado do jogo
 
-    // Construtor
-
+    /**
+     * Construtor: inicializa o objeto de persistência.
+     */
     public Jogo() {
         this.data = new Encapsulamento();
     }
 
-    // Métodos
-
+    /**
+     * Inicia um novo jogo: escolhe uma palavra aleatória e define flags padrão.
+     */
     public void iniciarJogo() {
         save = new Save(aleatorizarPalavra());
         definirEstadoPadrao();
     }
 
+    /**
+     * Continua um jogo salvo anteriormente, caso exista estado salvo.
+     *      */
     public boolean continuarJogo() {
-        if(data.existeEstado()) {
+        if (data.existeEstado()) {
             save = data.carregarEstado();
-            if(save==null) {
+            if (save == null) {
                 return false;
             }
             definirEstadoPadrao();
@@ -41,62 +51,71 @@ public class Jogo {
         return false;
     }
 
+    /**
+     * Processa a tentativa de adivinhar uma letra.
+     * Remove acentos, converte para minúscula, valida e atualiza estado.
+     *      *      */
     public boolean adivinharLetra(char letra) {
-        letra = removerAcentos(Character.toString(letra)).charAt(0); // remove acentos da palavra
-        letra = Character.toLowerCase(letra); // converte a letra para minúscula
+        letra = removerAcentos(Character.toString(letra)).charAt(0);
+        letra = Character.toLowerCase(letra);
 
-        if(existeLetraInvalida(letra)) { // verifica se o que foi digitado não é uma letra
+        if (existeLetraInvalida(letra)) {
             return false;
         }
 
-        if(isJogoIniciado() && !isJogoFinalizado() && !letraJaEscolhida(letra)) {
-
+        if (isJogoIniciado() && !isJogoFinalizado() && !letraJaEscolhida(letra)) {
             boolean possuiLetra = false;
             String palavra = save.getPalavraEscolhida();
 
-            for(int i=0;i<palavra.length();i++) {
-                if(letra == palavra.charAt(i)) {
+            // Verifica se a letra está na palavra
+            for (int i = 0; i < palavra.length(); i++) {
+                if (letra == palavra.charAt(i)) {
                     possuiLetra = true;
                     break;
                 }
             }
 
-            if(possuiLetra) {
+            // Atualiza lista de letras e tentativas
+            if (possuiLetra) {
                 save.acrescentarLetrasAdivinhadas(letra);
             } else {
                 save.acrescentarLetrasErradas(letra);
                 save.diminuirQuantTentativas();
             }
 
+            // Verifica vitória, derrota ou fim de jogo
             verificarEstado();
             return true;
         }
         return false;
     }
 
-
+    /**
+     * Tenta adivinhar a palavra completa.
+     * Converte e remove acentos antes de comparar.
+     *      *      */
     public boolean adivinharPalavra(String palavra) {
-        
-        palavra = palavra.toLowerCase(); // converte a palavra para minúscula
-        palavra = removerAcentos(palavra); // remove acentos da palavra 
+        palavra = palavra.toLowerCase();
+        palavra = removerAcentos(palavra);
 
-        if(isJogoIniciado() && !isJogoFinalizado()) {
-
-            if(palavra.equals(save.getPalavraEscolhida())) {
+        if (isJogoIniciado() && !isJogoFinalizado()) {
+            if (palavra.equals(save.getPalavraEscolhida())) {
                 this.jogadorGanhou = true;
             } else {
                 save.diminuirQuantTentativas();
             }
-
             verificarEstado();
             return true;
         }
         return false;
     }
 
+    /**
+     * Permite ao jogador sair do jogo, com opção de salvar estado.
+     *      *      */
     public boolean sair(boolean salvarJogo) {
-        if(isJogoIniciado() && !isJogoFinalizado()) {
-            if(salvarJogo) {
+        if (isJogoIniciado() && !isJogoFinalizado()) {
+            if (salvarJogo) {
                 data.salvarEstado(this.save);
             }
             jogoFinalizado = true;
@@ -106,63 +125,47 @@ public class Jogo {
         return false;
     }
 
-    // Métodos Get
+    // Métodos de acesso ao estado do jogo
 
+    /**
+     * Retorna o objeto Save com o estado do jogo.
+     */
     public Save retornarEstado() {
         return this.save;
     }
 
-    public boolean isJogoIniciado() {
-        return jogoIniciado;
-    }
+    public boolean isJogoIniciado() { return jogoIniciado; }
+    public boolean isJogoFinalizado() { return jogoFinalizado; }
+    public boolean isJogadorGanhou() { return jogadorGanhou; }
+    public boolean isJogadorSaiu() { return jogadorSaiu; }
 
-    public boolean isJogoFinalizado() {
-        return jogoFinalizado;
-    }
+    // Métodos privados auxiliares
 
-    public boolean isJogadorGanhou() {
-        return jogadorGanhou;
-    }
-
-    public boolean isJogadorSaiu() {
-        return jogadorSaiu;
-    }
-
-    // Métodos Privados
+    /**
+     * Verifica se a letra já foi tentada, seja certa ou errada.
+     *      *      */
     private boolean letraJaEscolhida(char letra) {
-
-        ArrayList<Character> letrasAdvinhadas = save.getLetrasAdivinhadas();
-        ArrayList<Character> letrasErradas = save.getLetrasErradas();
-
-        for(int i=0;i<letrasAdvinhadas.size();i++) {
-            if(letrasAdvinhadas.get(i)==letra) {
-                return true;
-            }
-        }
-
-        for(int i=0;i<letrasErradas.size();i++) {
-            if(letrasErradas.get(i)==letra) {
-                return true;
-            }
-        }
-
-        return false;
+        ArrayList<Character> adv = save.getLetrasAdivinhadas();
+        ArrayList<Character> err = save.getLetrasErradas();
+        return adv.contains(letra) || err.contains(letra);
     }
 
+    /**
+     * Seleciona aleatoriamente uma palavra da lista ou usa palavras padrão.
+     *      */
     private String aleatorizarPalavra() {
         List<String> lista = data.PegarListaDePalavras();
-
         if (lista == null || lista.isEmpty()) {
-            lista = List.of("perseverar","lua", "liberdade", "computador", "internet", "forca", "jogo", "palavra", "código");
+            lista = List.of("perseverar","lua","liberdade","computador","internet","forca","jogo","palavra","código");
         }
-
         int indice = (int) (Math.random() * lista.size());
         String palavra = lista.get(indice).toLowerCase();
-        palavra = removerAcentos(palavra); // remove acentos da palavra
-
-        return palavra;
+        return removerAcentos(palavra);
     }
 
+    /**
+     * Inicializa as flags padrão do jogo.
+     */
     private void definirEstadoPadrao() {
         this.jogoIniciado = true;
         this.jogoFinalizado = false;
@@ -170,40 +173,36 @@ public class Jogo {
         this.jogadorGanhou = false;
     }
 
+    /**
+     * Verifica se o jogo deve ser finalizado por vitória ou esgotamento de tentativas.
+     */
     private void verificarEstado() {
-        if (isJogadorGanhou() || save.getQuantTentativas()==0) {
+        if (isJogadorGanhou() || save.getQuantTentativas() == 0) {
             this.jogoFinalizado = true;
             data.zerarEstado();
-        } else if(save.getPalavraAdvinhada().equals(save.getPalavraEscolhida())){
+        } else if (save.getPalavraAdvinhada().equals(save.getPalavraEscolhida())) {
             this.jogoFinalizado = true;
             this.jogadorGanhou = true;
             data.zerarEstado();
         }
     }
 
+    /**
+     * Verifica se o caractere informado não é uma letra válida (a-z ou '-').
+     *      *      */
     private static boolean existeLetraInvalida(char letra) {
-        if(letra == 'a' || letra == 'b' || letra == 'c' || letra == 'd' || letra == 'e' ||
-           letra == 'f' || letra == 'g' || letra == 'h' || letra == 'i' || letra == 'j' ||
-           letra == 'k' || letra == 'l' || letra == 'm' || letra == 'n' || letra == 'o' ||
-           letra == 'p' || letra == 'q' || letra == 'r' || letra == 's' || letra == 't' ||
-           letra == 'u' || letra == 'v' || letra == 'w' || letra == 'x' || letra == 'y' ||
-           letra == 'z' || letra == '-') {
-            return false;
-        }
-        return true;
+        return !( (letra >= 'a' && letra <= 'z') || letra == '-');
     }
 
+    /**
+     * Remove acentos de uma string utilizando Normalizer e regex.
+     *      *      */
     private static String removerAcentos(String texto) {
         if (texto == null) {
             return null;
         }
-        // 1. Normaliza o texto para a forma de decomposição canônica (NFD)
         String textoNormalizado = Normalizer.normalize(texto, Normalizer.Form.NFD);
-        
-        // 2. Define o padrão de regex para encontrar diacríticos (acentos)
         Pattern padrao = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
-        
-        // 3. Remove os acentos substituindo-os por uma string vazia
         return padrao.matcher(textoNormalizado).replaceAll("");
     }
 }
