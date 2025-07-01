@@ -137,6 +137,9 @@ public class CLI {
         //Forca
         printarForca(save.getQuantTentativas());
 
+        // NomeJogador
+        System.out.println(String.format(" JOGADOR: %s\n\n", save.getNomeJogador()));
+
         // Print Palavra Adivinhada
         String palavraAdvinhada = save.getPalavraAdvinhada();
         System.out.print("  ");
