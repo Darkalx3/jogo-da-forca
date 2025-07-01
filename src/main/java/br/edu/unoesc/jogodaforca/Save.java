@@ -8,6 +8,7 @@ public class Save implements Serializable {
     // Variáveis
 
     private static final long serialVersionUID = 2L;
+    private String nomeJogador;
     private ArrayList<Character> letrasAdivinhadas;
     private ArrayList<Character> letrasErradas;
     private String palavraAdvinhada;
@@ -16,9 +17,10 @@ public class Save implements Serializable {
 
     // Construtores
 
-    public Save(String palavra) {
+    public Save(String palavra, String nomeJogador) {
         /* quantTentativas pode ser por padrão 6 */
         this.quantTentativas = 6;
+        this.nomeJogador = nomeJogador;
         this.palavraEscolhida = palavra;
         this.palavraAdvinhada = "";
         letrasAdivinhadas = new ArrayList<>();
@@ -26,8 +28,9 @@ public class Save implements Serializable {
         atualizarPalavraAdvinhada();
     }
 
-    public Save(String palavra, int quantTentativas) {
+    public Save(String palavra, int quantTentativas, String nomeJogador) {
         this.quantTentativas = quantTentativas;
+        this.nomeJogador = nomeJogador;
         this.palavraEscolhida = palavra;
         this.palavraAdvinhada = "";
         letrasAdivinhadas = new ArrayList<>();
@@ -76,7 +79,10 @@ public class Save implements Serializable {
         return palavraAdvinhada;
     }
 
+    public String getNomeJogador() { return nomeJogador; }
+
     // Métodos Privados
+
     private boolean letraFoiAdivinhada(char letra) {
         for(int i=0;i<this.letrasAdivinhadas.size();i++) {
             if(this.letrasAdivinhadas.get(i)==letra) {
@@ -96,5 +102,4 @@ public class Save implements Serializable {
             }
         }
     }
-
 }

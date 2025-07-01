@@ -59,6 +59,9 @@ public class CLI {
                         " -----------------------------------------------\n\n  "
                         );
 
+        // Nome do Jogador
+        System.out.print(String.format(" JOGADOR: %s\n\n", save.getNomeJogador()));
+
         // Tentativas
         printarForca(save.getQuantTentativas());
 
@@ -170,6 +173,13 @@ public class CLI {
 
         System.out.flush();
         scan.next();
+    }
+
+    public String renderizarNomeJogador() {
+        System.out.print(" -\n Digite o nome do Jogador: ");
+
+        System.out.flush();
+        return scan.next();
     }
 
     public boolean renderizarSair() {

@@ -24,8 +24,8 @@ public class Jogo {
 
     // Métodos
 
-    public void iniciarJogo() {
-        save = new Save(aleatorizarPalavra());
+    public void iniciarJogo(String nomeJogador) {
+        save = new Save(aleatorizarPalavra(), nomeJogador);
         definirEstadoPadrao();
     }
 

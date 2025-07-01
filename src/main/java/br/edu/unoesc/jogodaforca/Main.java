@@ -28,7 +28,7 @@ public class Main {
             if (opt == 0) {
                 break;
             } else if (opt == 1) {
-                jogo.iniciarJogo();
+                jogo.iniciarJogo(cli.renderizarNomeJogador());
                 errorMenu = null;
             } else if (opt == 2) {
                 if (!jogo.continuarJogo()) {
